@@ -26,3 +26,46 @@
     transform: rotate(360deg);
   }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+input{
+  background-color: transparent;
+  border: none;
+}
+
+input:focus,input:focus-visible{
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+button{
+  padding: 6px 10px !important;
+  font-size: 12px !important;
+}
+
+button:hover{
+  border: 1px solid gray !important;
+}
+
+button:focus, button:focus-visible{
+  border: none !important;
+  outline: none !important;
+}
+
+.add-new-module-btn {
+  border: 1px solid grey;
+}

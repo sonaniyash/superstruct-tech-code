@@ -5,6 +5,17 @@ import { Box, Typography } from "@mui/material";
 import ExperimentContainer from "./ExperimentContainer";
 import EmptyExperiment from "../EmptyExperiment";
 
+import {
+  Experiment as ExperimentType,
+  addIterationToModule,
+  lockModule,
+  resetExperimentModule,
+} from "../../store/slice/experimentSlice";
+import { useAppDispatch } from "../../store/hooks";
+
+import { generateTitle } from "../../utils/api";
+import { apikey } from "../../utils/constant";
+
 interface TypeButtonProps {
   active: boolean;
 }
@@ -21,23 +32,34 @@ export const TypeButton = styled.button<TypeButtonProps>`
 `;
 
 const Experiment = ({ data }: { data: ExperimentType }) => {
+  const dispatch = useAppDispatch();
   const [addingIteration, setAddingIteration] = useState<boolean>(false);
 
   const lock = () => {
     // INFO: update the perticular experiment isLock fields from here
+    dispatch(lockModule({ id: data.id, isLock: !data.isLock }));
   };
 
   const addIteration = (titleValue: string) => {
     // INFO: call the redux action to add the experiment value into redux storage
+    dispatch(addIterationToModule({ id: data.id, title: titleValue }));
     setAddingIteration(false);
   };
 
   const reset = () => {
     // INFO: reset the experiment iteration's list from here.
+    dispatch(resetExperimentModule({ id: data.id }));
   };
 
   const handleGenerateTitle = async ({ title, promptText, type }: any) => {
-    // INFO: generate the Prompt engineering title from here and based on response trigger the addIteration event. 
+    // INFO: generate the Prompt engineering title from here and based on response trigger the addIteration event.
+    const response = await generateTitle(promptText, type.toString(), apikey);
+
+    if (response) {
+      addIteration(response);
+    } else {
+      addIteration(title);
+    }
   };
 
   return (
