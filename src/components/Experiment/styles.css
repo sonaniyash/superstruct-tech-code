@@ -1,0 +1,17 @@
+.text-area-prompt {
+    font-size: smaller;
+    width: 100%;
+    text-align: left;
+    background-color: black;
+    border: none;
+    font-family: Arial;
+    color: #ffffff;
+}
+
+.input-title {
+    color: #ffffff;
+}
+
+.btn-right-margin {
+    margin-right: 6px;
+}
